@@ -5,6 +5,7 @@ class TvMaze{
         this.showNameButtons = {};
         this.selectedName = 'harry';
         this.initializeApp();
+        this.setupListeners();
     }
     
     initializeApp = () => {
@@ -17,9 +18,21 @@ class TvMaze{
             document.querySelectorAll('[data-show-name]'))
         .map(elem => elem.dataset.showName);
 
-        this.showNameButtons = mapListToDOMElements(listOfShowNames);
-        this.viewElems = mapListToDOMElements(listOfIds);
+        this.viewElems = mapListToDOMElements(listOfIds, 'id');
+        this.showNameButtons = mapListToDOMElements(listOfShowNames,'data-show-name');
+    }
+
+    setupListeners = () => {
+        Object.keys(this.showNameButtons).forEach(showName => {
+            this.showNameButtons[showName].addEventListener('click', this.setCurrentNameFilter);
+        });
+    }
+
+    setCurrentNameFilter = (event) => {
+        this.selectedName = event.target.dataset.showName;
+        console.log(event)
     }
 }
 
 document.addEventListener('DOMContentLoaded',new TvMaze());
+
