@@ -6,7 +6,6 @@ class TvMaze{
         this.showNameButtons = {};
         this.selectedName = 'harry';
         this.initializeApp();
-        this.setupListeners();
     }
     
     initializeApp = () => {
@@ -25,53 +24,59 @@ class TvMaze{
         this.showNameButtons = mapListToDOMElements(listOfShowNames,'data-show-name');
     }
 
-    setupListeners = () => {
-        Object.keys(this.showNameButtons).forEach(showName => {
+    setupListeners = () => { // git
+        Object.keys(this.showNameButtons).forEach( showName => {
             this.showNameButtons[showName].addEventListener('click', this.setCurrentNameFilter);
         });
     }
 
     setCurrentNameFilter = (event) => {
         this.selectedName = event.target.dataset.showName;
+        this.fetchAndDisplayShows();
     }
     
-    fetchAndDisplayShows = () => {
+    fetchAndDisplayShows = () => { // nie odświeża selectedName tutaj jest tylko harry
+        console.log(this.selectedName)
         getShowsByKey(this.selectedName).then(shows => this.renderCards(shows));
+        
     }
-   
-    renderCards = shows => {
+
+    renderCards = shows => { //to też działa
+        this.viewElems.showsWrapper.innerHTML = "";
         for (const { show } of shows) {
             this.createShowCard(show);
         }
     }
 
     createShowCard = show => {
-        console.log(show)
-        
-        const divCard = createDOMElem('div','card');
-        const divCardBody = createDOMElem('div','card-body');
-        const h5 = createDOMElem('h5','card-title', show.name);
-        const p = createDOMElem('p','card-text', show.summary);
-        const btn = createDOMElem('button','btn btn-primary', 'Show details');
+        const divCard = createDOMElem('div', 'card');
+        const divCardBody = createDOMElem('div', 'card-body');
+        const h5 = createDOMElem('h5', 'card-title', show.name);
+        const btn = createDOMElem('button', 'btn btn-primary', 'Show details');
+        let img, p;
 
-        if (show.image == null) {
-            const img = createDOMElem('img','card-img-top', null, "./photos/under.png");
-            divCard.appendChild(img);
+        if (show.image) {
+            img = createDOMElem('img', 'card-img-top', null, show.image.medium)
         }
-
         else {
-            const img = createDOMElem('img','card-img-top', null, show.image.medium);
-            divCard.appendChild(img);
-
+            img = createDOMElem('img', 'card-img-top', null, "https://via.placeholder.com/210x295")
         }
 
-        divCard.appendChild(divCardBody);
+        if (show.summary) {
+            p = createDOMElem('p', 'card-text', `${show.summary.slice(0,80)}...`);
+        }
+        else {
+            p = createDOMElem('p', 'card-text', 'There is no summary for that show yet.');
+        }
+
+
         
+        divCard.appendChild(img);
+        divCard.appendChild(divCardBody);
         divCard.appendChild(h5);
         divCard.appendChild(p);
         divCard.appendChild(btn);
 
-      
         this.viewElems.showsWrapper.appendChild(divCard);
 
     }
