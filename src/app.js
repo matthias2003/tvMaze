@@ -24,7 +24,7 @@ class TvMaze{
         this.showNameButtons = mapListToDOMElements(listOfShowNames,'data-show-name');
     }
 
-    setupListeners = () => { // git
+    setupListeners = () => {
         Object.keys(this.showNameButtons).forEach( showName => {
             this.showNameButtons[showName].addEventListener('click', this.setCurrentNameFilter);
         });
@@ -35,13 +35,13 @@ class TvMaze{
         this.fetchAndDisplayShows();
     }
     
-    fetchAndDisplayShows = () => { // nie odświeża selectedName tutaj jest tylko harry
+    fetchAndDisplayShows = () => {
         console.log(this.selectedName)
         getShowsByKey(this.selectedName).then(shows => this.renderCards(shows));
         
     }
 
-    renderCards = shows => { //to też działa
+    renderCards = shows => {
         this.viewElems.showsWrapper.innerHTML = "";
         for (const { show } of shows) {
             this.createShowCard(show);
