@@ -73,8 +73,13 @@ class TvMaze{
         const divCard = createDOMElem('div', 'card');
         const divCardBody = createDOMElem('div', 'card-body');
         const h5 = createDOMElem('h5', 'card-title', show.name);
-        const btn = createDOMElem('button', 'btn btn-primary', 'Show details');
-        let img, p;
+        let img, p, btn;
+
+        if (isDetailed) {  
+            btn = createDOMElem('button', 'btn btn-danger', 'Hide1 details');
+        }   else {
+            btn = createDOMElem('button', 'btn btn-primary', 'Show details');
+        }
 
         if (show.image) {
             if (isDetailed) {
@@ -88,6 +93,8 @@ class TvMaze{
         }
 
         if (show.summary) {
+            show.summary = show.summary.replace(/<\/?[^>]+(>|$)/g, "");
+
             if (isDetailed) {
                 p = createDOMElem('p', 'card-text', show.summary);
             }   else {
@@ -105,15 +112,12 @@ class TvMaze{
             btn.addEventListener('click', this.openDetailsView)
         }
 
-        
-        
         divCard.appendChild(img);
+        divCardBody.appendChild(h5);
+        divCardBody.appendChild(p);
+        divCardBody.appendChild(btn);
         divCard.appendChild(divCardBody);
-        divCard.appendChild(h5);
-        divCard.appendChild(p);
-        divCard.appendChild(btn);
 
-        
         return divCard;
     }
 
