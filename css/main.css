@@ -1,5 +1,7 @@
 body {
-    margin: 50px 0 !important;
+    margin: 50px 0;
+    background-image: url('../photos/bcg.jpg');/* do przemyślenia, bo trochę się zlewa z Cards*/
+
   }
   
   .search-bar {
@@ -13,6 +15,11 @@ body {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+  }
+
+  .shows-wrapper::after {
+    content: ""; 
+    flex: auto;
   }
   
   .shows-wrapper .card {
@@ -69,4 +76,14 @@ body {
 
   .form-box .btn {
     padding: .275rem .700rem;
+  }
+
+  .card .card-body {
+    display: flex;
+    flex-direction: column;
+  } 
+
+  .card-body .btn {
+    align-self:flex-start;
+    margin-top: auto
   }
