@@ -13,7 +13,6 @@ body {
   
   .shows-wrapper {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
   }
 
@@ -21,12 +20,9 @@ body {
   .shows-wrapper .card {
     width: 24%;
     margin-bottom: 1.5%;
+    margin:0.5%;
   }
 
-  .shows-wrapper .card:last-child {
-    width: 24%;
-    margin-bottom: 1.5%;
-  }
 
   .show-preview {
     position: fixed;
