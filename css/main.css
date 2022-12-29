@@ -1,7 +1,6 @@
 body {
     margin: 50px 0;
-    /*background-image: url('../photos/bcg.jpg');/* do przemyślenia, bo trochę się zlewa z Cards*/
-
+    background-color: #f9faff;
   }
   
   .search-bar {
@@ -14,13 +13,13 @@ body {
   .shows-wrapper {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-evenly;
   }
 
 
   .shows-wrapper .card {
     width: 24%;
-    margin-bottom: 1.5%;
-    margin:0.5%;
+    margin-bottom: 1%;
   }
 
 
@@ -83,4 +82,12 @@ body {
   .card-body .btn {
     align-self:flex-start;
     margin-top: auto
+  }
+
+  @media only screen and (max-width: 768px) {
+    .shows-wrapper .card {
+      width: 40%;
+      margin-bottom: 1.5%;
+      margin:0.5%;
+    }
   }
