@@ -36,10 +36,12 @@ class TvMaze{
         this.fetchAndDisplayShows();
     }
     
-    handleSubmit = event => { // sprawdzić renderCardsOnList i przerobić to/ jak pusty input przesłany to zeruje kart ogarnąć to!!!
+    handleSubmit = event => {
         if (event.type === "click" || event.key === "Enter"){
-            getShowsByKey(this.viewElems.showSearchInput.value).then(shows => this.renderCardsOnList(shows));
             event.preventDefault();
+            if (this.viewElems.showSearchInput.value) {
+                getShowsByKey(this.viewElems.showSearchInput.value).then(shows => this.renderCardsOnList(shows));
+            }
         }}
 
     fetchAndDisplayShows = () => {
@@ -61,11 +63,13 @@ class TvMaze{
 
     openDetailsView = event => {
         const { showId } = event.target.dataset;
-        getShowById(showId).then(show => {
-            const card = this.createShowCard(show, true);
-            this.viewElems.showPreview.appendChild(card);
-            this.viewElems.showPreview.style.display = 'block';
-        })
+        if (this.viewElems.showPreview.style.display != "block") {
+            getShowById(showId).then(show => {
+                const card = this.createShowCard(show, true);
+                this.viewElems.showPreview.appendChild(card);
+                this.viewElems.showPreview.style.display = 'block';
+            })
+        }
     }
 
     closeDetailsView = event => {
@@ -91,10 +95,14 @@ class TvMaze{
                 img = createDOMElem('img', 'card-img-top', null, show.image.medium);
             }
         } else {
-            img = createDOMElem('img', 'card-img-top', null, "https://via.placeholder.com/210x295");
+            if (isDetailed) {
+                img = createDOMElem('div', 'card-preview-bg');
+                img.style.backgroundImage = `url('https://dummyimage.com/800x300/ccc/9c9c9c.png')`;
+            } else {
+                img = createDOMElem('img', 'card-img-top', null, "https://via.placeholder.com/210x295");
+            }
         }
         
-       
         if (show.summary) { 
             show.summary = show.summary.replace(/<\/?[^>]+(>|$)/g, "");
             if (isDetailed) {
@@ -113,7 +121,6 @@ class TvMaze{
         } else {
             btn.addEventListener('click', this.openDetailsView)
         }
-
 
         divCard.appendChild(img);
         divCardBody.appendChild(h5);
