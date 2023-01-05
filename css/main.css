@@ -13,15 +13,13 @@ body {
   .shows-wrapper {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
   }
-
-
+ 
   .shows-wrapper .card {
     width: 24%;
     margin-bottom: 1%;
+    margin: 0.5%;
   }
-
 
   .show-preview {
     position: fixed;
@@ -50,9 +48,8 @@ body {
 
   .form-box {
     display: inline-flex;
-    gap: 10px;
-    flex:1;
-
+    justify-content: flex-end;
+    width: 30%;
   }
 
   .btn {
@@ -60,14 +57,15 @@ body {
     padding: .275rem .45rem;
   }
 
-  .form-input-overwrite {
+  .form-input {
     border-radius: 1rem;
     padding: .275rem .45rem;
+    width: 70%;
+    margin: 0px 10px;
   }
   
   .dropdown {
     display: flex;
-    flex:3;
   }
 
   .form-box .btn {
@@ -89,5 +87,17 @@ body {
       width: 40%;
       margin-bottom: 1.5%;
       margin:0.5%;
+    }
+
+    .shows-wrapper {
+      justify-content: center;
+    }
+
+    .search-bar {
+      justify-content: space-between;
+    }
+
+    .form-box {
+      width: 50%;
     }
   }
