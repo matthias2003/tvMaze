@@ -34,6 +34,7 @@ class TvMaze{
     setCurrentNameFilter = (event) => {
         this.selectedName = event.target.dataset.showName;
         this.fetchAndDisplayShows();
+        this.viewElems.showSearchInput.value = "";
     }
     
     handleSubmit = event => {
