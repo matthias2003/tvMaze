@@ -1,3 +1,4 @@
+//import { runInThisContext } from 'vm';
 import { mapListToDOMElements, createDOMElem } from './domInteractions.js';
 import { getShowsByKey, getShowById } from './request.js';
 class TvMaze{
@@ -5,6 +6,7 @@ class TvMaze{
         this.viewElems = {};
         this.showNameButtons = {};
         this.selectedName = 'Harry';
+        this.regex = new RegExp(/<[a-z0-9]*>|<\/[a-z0-9]*>/,'gi');
         this.initializeApp();
     }
     
@@ -110,11 +112,12 @@ class TvMaze{
         }
         
         if (show.summary) { 
-            show.summary = show.summary.replace(/<\/?[^>]+(>|$)/g, "");
+            //show.summary = show.summary.replace(/<\/?[^>]+(>|$)/g, "");
+            //show.summary = show.summary.replace(this.regex,"")
             if (isDetailed) {
-                p = createDOMElem('p', 'card-text', show.summary);
+                p = createDOMElem('p', 'card-text', show.summary.replace(this.regex,""));
             } else {
-                p = createDOMElem('p', 'card-text', `${show.summary.slice(0,80)}...`);
+                p = createDOMElem('p', 'card-text', `${show.summary.slice(0,80).replace(this.regex,"")}...`);
             }
         } else {
             p = createDOMElem('p', 'card-text', 'There is no summary for that show yet.');
