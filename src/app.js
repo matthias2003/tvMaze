@@ -1,4 +1,3 @@
-//import { runInThisContext } from 'vm';
 import { mapListToDOMElements, createDOMElem } from './domInteractions.js';
 import { getShowsByKey, getShowById } from './request.js';
 class TvMaze{
